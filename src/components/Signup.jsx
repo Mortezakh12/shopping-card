@@ -3,8 +3,9 @@ import * as Yup from "yup";
 import Input from "../common/Input";
 import { Link, withRouter } from "react-router-dom";
 import { signupUser } from "../services/signupServices";
-import { useState } from "react";
-import { useAuthActions } from "../Provider/AuthProvider";
+import { useEffect, useState } from "react";
+import { useAuth, useAuthActions } from "../Provider/AuthProvider";
+import { useQuery } from "../hooks/useQuery";
 const initialValues = {
   name: "",
   email: "",
@@ -34,7 +35,14 @@ const validationSchema = Yup.object({
 });
 
 const SignupForm = ({ history }) => {
-  const setAuth=useAuthActions();
+  const query = useQuery();
+  const redirect = query.get("redirect") || "/";
+  console.log(query.get("redirect"));
+  const setAuth = useAuthActions();
+  const auth = useAuth();
+  useEffect(() => {
+    if (auth) history.push(redirect);
+  }, [redirect, auth]);
   console.log(history);
   const [error, setError] = useState(null);
   const onSubmit = async (values) => {
@@ -50,7 +58,7 @@ const SignupForm = ({ history }) => {
       setAuth(data);
       // localStorage.setItem('authstate',JSON.stringify(data));
       setError(null);
-      history.push("/");
+      history.push(redirect);
     } catch (error) {
       console.log(error.response.data.message);
       if (error.response && error.response.data.message)
@@ -99,7 +107,10 @@ const SignupForm = ({ history }) => {
         <Link to={`/login?redirect=${redirect}`}>
           <p style={{ marginTop: "15px" }}>Already login?</p>
         </Link> */}
-        <Link to="/login" className={"mx-auto flex justify-center mt-4"}>
+        <Link
+          to={`/login?redirect=${redirect}`}
+          className={"mx-auto flex justify-center mt-4"}
+        >
           Already Login?
         </Link>
       </form>

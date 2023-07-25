@@ -1,11 +1,10 @@
 import Layout from "../Layout/Layout";
+import Checkout from "../components/Checkout";
 
 const CheckOutPage = () => {
     return (  
         <Layout>
-            <div>
-                this is check out!
-            </div>
+                <Checkout />
         </Layout>
     );
 }

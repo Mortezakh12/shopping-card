@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
 import Layout from "../Layout/Layout";
-import { ProfileUser } from "../services/profileService";
 import { useAuth } from "../Provider/AuthProvider";
 import { useCart } from "../Provider/CartProvider";
 

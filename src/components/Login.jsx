@@ -2,9 +2,10 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import Input from "../common/Input";
 import { Link, withRouter } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { loginUser } from "./../services/loginServices";
-import { useAuthActions } from "../Provider/AuthProvider";
+import { useAuth, useAuthActions } from "../Provider/AuthProvider";
+import { useQuery } from "../hooks/useQuery";
 const initialValues = {
   email: "",
   password: "",
@@ -22,8 +23,14 @@ const validationSchema = Yup.object({
 });
 
 // eslint-disable-next-line react-refresh/only-export-components, react/prop-types
-const LoginForm = ({history}) => {
- const setAuth= useAuthActions(); 
+const LoginForm = ({ history }) => {
+  const query = useQuery();
+  const redirect = query.get("redirect") || "/";
+  const auth = useAuth();
+  useEffect(() => {
+    if (auth) history.push(redirect);
+  }, [redirect, auth]);
+  const setAuth = useAuthActions();
 
   const [error, setError] = useState(null);
   const onSubmit = async (values) => {
@@ -32,7 +39,7 @@ const LoginForm = ({history}) => {
       setAuth(data);
       // localStorage.setItem('authstate',JSON.stringify(data));
       // eslint-disable-next-line react/prop-types
-      history.push("/");
+      history.push(redirect);
       setError(null);
       console.log(data);
     } catch (error) {
@@ -72,7 +79,10 @@ const LoginForm = ({history}) => {
         <Link to={`/login?redirect=${redirect}`}>
           <p style={{ marginTop: "15px" }}>Already login?</p>
         </Link> */}
-        <Link to="/signup" className={"mx-auto flex justify-center mt-4"}>
+        <Link
+          to={`/signup?redirect=${redirect}`}
+          className={"mx-auto flex justify-center mt-4"}
+        >
           Not Signup yet?
         </Link>
       </form>

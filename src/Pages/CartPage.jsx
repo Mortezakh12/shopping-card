@@ -135,7 +135,7 @@ const CartSummery = ({ total, cart }) => {
               <p className="text-sm text-gray-700"></p>
             </div>
           </div>
-          <Link to="/checkout">
+          <Link to="/signup?redirect=checkout">
             <button className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">
               Check out
             </button>
