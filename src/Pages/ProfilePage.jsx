@@ -3,9 +3,9 @@ import { useAuth } from "../Provider/AuthProvider";
 import { useCart } from "../Provider/CartProvider";
 
 const ProfilePage = () => {
-   const data=useAuth();
-   const cart=useCart()
-   console.log(cart);
+  const data = useAuth();
+  const { cart } = useCart();
+  console.log(cart);
   return (
     <Layout>
       <div className="bg-white max-w-2xl shadow overflow-hidden sm:rounded-lg">
@@ -26,7 +26,9 @@ const ProfilePage = () => {
               </dd>
             </div>
             <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt className="text-sm font-medium text-gray-500">Phone Number</dt>
+              <dt className="text-sm font-medium text-gray-500">
+                Phone Number
+              </dt>
               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                 {data.phoneNumber}
               </dd>
@@ -42,7 +44,14 @@ const ProfilePage = () => {
             <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
               <dt className="text-sm font-medium text-gray-500">cart detail</dt>
               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                {cart.name}
+                {cart &&
+                  cart.map((c) => {
+                    return (
+                      <>
+                        {c.name}*{c.quantity}
+                      </>
+                    );
+                  })}
               </dd>
             </div>
             <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
