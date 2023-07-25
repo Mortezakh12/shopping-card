@@ -7,17 +7,16 @@ const AuthProviderContextDispatcher = createContext();
 const LOCAL_STORAGE_AUTH_KEY = "authState";
 // eslint-disable-next-line react/prop-types
 function AuthProvider({ children }) {
-  
   const [state, setState] = useState(false);
   useEffect(() => {
     const userData =
       JSON.parse(localStorage.getItem(LOCAL_STORAGE_AUTH_KEY)) || false;
-      setState(userData);
+    setState(userData);
   }, []);
   useEffect(() => {
-    const data = JSON.stringify(state);
-    localStorage.setItem(LOCAL_STORAGE_AUTH_KEY, data);
-    console.log(state);
+    const data = state && JSON.stringify(state);
+    if (data)
+      localStorage.setItem(LOCAL_STORAGE_AUTH_KEY, data);
   }, [state]);
   // useEffect(() => {
   //   const userData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_AUTH_KEY));

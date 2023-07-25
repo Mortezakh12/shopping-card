@@ -44,7 +44,9 @@ const CartPage = () => {
                             {item.name}
                           </h2>
                           <p className="mt-1 text-xs text-gray-700">
-                            36EU - 4US
+                            <p className="text-gray-700 text-lg"> discount:
+                            {item.discount}$
+                            </p>
                           </p>
                         </div>
                         <div className="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
@@ -110,8 +112,8 @@ export default CartPage;
 const CartSummery = ({ total, cart }) => {
   // eslint-disable-next-line no-unused-vars, react/prop-types
   const originalTotalPrice = cart.length
-    // eslint-disable-next-line react/prop-types
-    ? cart.reduce((acc, curr) => acc + curr.quantity * curr.price, 0)
+    ? // eslint-disable-next-line react/prop-types
+      cart.reduce((acc, curr) => acc + curr.quantity * curr.price, 0)
     : 0;
   return (
     <div className="h-screen bg-gray-100 pt-20">
@@ -130,15 +132,14 @@ const CartSummery = ({ total, cart }) => {
             <p className="text-lg font-bold">Net price</p>
             <div className="">
               <p className="mb-1 text-lg font-bold">{total}$ USD</p>
-              <p className="text-sm text-gray-700">including VAT</p>
+              <p className="text-sm text-gray-700"></p>
             </div>
           </div>
           <Link to="/checkout">
-          <button className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">
-            Check out
-          </button>
+            <button className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">
+              Check out
+            </button>
           </Link>
-          
         </div>
       </div>
     </div>

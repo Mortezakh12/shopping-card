@@ -1,28 +1,19 @@
 import { useEffect, useState } from "react";
 import Layout from "../Layout/Layout";
 import { ProfileUser } from "../services/profileService";
+import { useAuth } from "../Provider/AuthProvider";
+import { useCart } from "../Provider/CartProvider";
 
 const ProfilePage = () => {
-    const { user, setUser } = useState("");
-
-    useEffect(() => {
-      const fetchUserProfile = async () => {
-        try {
-          const response = await ProfileUser; // Replace with your API endpoint
-          setUser(response.data);
-        } catch (error) {
-          console.error(error);
-        }
-      };
-  
-      fetchUserProfile();
-    }, [setUser]);
+   const data=useAuth();
+   const cart=useCart()
+   console.log(cart);
   return (
     <Layout>
       <div className="bg-white max-w-2xl shadow overflow-hidden sm:rounded-lg">
         <div className="px-4 py-5 sm:px-6">
           <h3 className="text-lg leading-6 font-medium text-gray-900">
-            User database
+            User Profile
           </h3>
           <p className="mt-1 max-w-2xl text-sm text-gray-500">
             Details and informations about user.
@@ -33,13 +24,13 @@ const ProfilePage = () => {
             <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
               <dt className="text-sm font-medium text-gray-500">Name:</dt>
               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                Mickael Poulaz
+                {data.name}
               </dd>
             </div>
             <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt className="text-sm font-medium text-gray-500">Best techno</dt>
+              <dt className="text-sm font-medium text-gray-500">Phone Number</dt>
               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                React JS
+                {data.phoneNumber}
               </dd>
             </div>
             <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -47,13 +38,13 @@ const ProfilePage = () => {
                 Email address
               </dt>
               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                m.poul@example.com
+                {data.email}
               </dd>
             </div>
             <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt className="text-sm font-medium text-gray-500">Salary</dt>
+              <dt className="text-sm font-medium text-gray-500">cart detail</dt>
               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                $10,000
+                {cart.name}
               </dd>
             </div>
             <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">

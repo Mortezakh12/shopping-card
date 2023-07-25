@@ -32,12 +32,12 @@ const Navigation = ({ location }) => {
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Link to="/" className="flex items-center">
           <img
-            src="https://flowbite.com/docs/images/logo.svg"
+            src="/src/Assets/logo.svg"
             className="h-8 mr-3"
-            alt="Flowbite Logo"
+            alt="Shopping Logo"
           />
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-            Flowbite
+            Shopping
           </span>
         </Link>
         <div className="flex md:order-2">
